@@ -1,0 +1,20 @@
+import {SigaCharoApp} from './application';
+
+export async function migrate(args: string[]) {
+  const existingSchema = args.includes('--rebuild') ? 'drop' : 'alter';
+  console.log('Migrando esquemas (%s esquema existente)', existingSchema);
+
+  const app = new SigaCharoApp();
+  await app.boot();
+  await app.migrateSchema({existingSchema});
+
+  // Connectors usually keep a pool of opened connections,
+  // this keeps the process running even after all work is done.
+  // We need to exit explicitly.
+  process.exit(0);
+}
+
+migrate(process.argv).catch(err => {
+  console.error('No puedo migrar el esquema de la BD', err);
+  process.exit(1);
+});
