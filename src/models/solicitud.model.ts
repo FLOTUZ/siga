@@ -28,7 +28,7 @@ export class Solicitud extends Entity {
 
   @property({
     type: 'string',
-    default: "pendiente",
+    default: 'pendiente',
   })
   estatus?: string;
 
@@ -65,6 +65,15 @@ export class Solicitud extends Entity {
   })
   notas?: string;
 
+  @property({
+    type: 'number',
+  })
+  usuarioAutorizadorId?: number;
+
+  @property({
+    type: 'number',
+  })
+  usuarioEntregaId?: number;
 
   constructor(data?: Partial<Solicitud>) {
     super(data);

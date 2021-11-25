@@ -5,11 +5,11 @@ const config = {
   name: 'Azure',
   connector: 'mysql',
   url: '',
-  host: '104.43.202.176.',
+  host: 'localhost',
   port: 3307,
-  user: 'root',
+  user: 'emmanuel',
   password: 'sintezoide',
-  database: 'sigacharo'
+  database: 'sigacharo',
 };
 
 // Observe application's life cycle to disconnect the datasource when
@@ -17,8 +17,10 @@ const config = {
 // gracefully. The `stop()` method is inherited from `juggler.DataSource`.
 // Learn more at https://loopback.io/doc/en/lb4/Life-cycle.html
 @lifeCycleObserver('datasource')
-export class AzureDataSource extends juggler.DataSource
-  implements LifeCycleObserver {
+export class AzureDataSource
+  extends juggler.DataSource
+  implements LifeCycleObserver
+{
   static dataSourceName = 'Azure';
   static readonly defaultConfig = config;
 

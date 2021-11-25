@@ -7,3 +7,4 @@ export * from './programa.repository';
 export * from './solicitud.repository';
 export * from './unidad.repository';
 export * from './usuario.repository';
+export * from './captura.repository';

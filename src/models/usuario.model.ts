@@ -1,4 +1,9 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, hasMany, model, property, hasOne} from '@loopback/repository';
+import {Captura} from './captura.model';
+import {Log} from './log.model';
+import {Programa} from './programa.model';
+import {Solicitud} from './solicitud.model';
+import {Beneficiario} from './beneficiario.model';
 
 @model()
 export class Usuario extends Entity {
@@ -73,6 +78,24 @@ export class Usuario extends Entity {
     default: false,
   })
   administraSistema?: boolean;
+
+  @hasMany(() => Log)
+  logs: Log[];
+
+  @hasMany(() => Programa)
+  programas: Programa[];
+
+  @hasMany(() => Solicitud, {through: {model: () => Captura}})
+  captura: Solicitud[];
+
+  @hasMany(() => Solicitud, {keyTo: 'usuarioAutorizadorId'})
+  autorizadas: Solicitud[];
+
+  @hasOne(() => Solicitud, {keyTo: 'usuarioEntregaId'})
+  entrega: Solicitud;
+
+  @hasMany(() => Beneficiario, {keyTo: 'usuarioCargaId'})
+  beneficiarios: Beneficiario[];
 
   constructor(data?: Partial<Usuario>) {
     super(data);

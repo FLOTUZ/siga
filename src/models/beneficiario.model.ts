@@ -53,6 +53,10 @@ export class Beneficiario extends Entity {
   })
   fechaBaja?: string;
 
+  @property({
+    type: 'number',
+  })
+  usuarioCargaId?: number;
 
   constructor(data?: Partial<Beneficiario>) {
     super(data);

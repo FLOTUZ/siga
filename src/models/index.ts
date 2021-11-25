@@ -7,3 +7,4 @@ export * from './beneficiario.model';
 export * from './persona-fisica.model';
 export * from './persona-moral.model';
 export * from './comunidad.model';
+export * from './captura.model';

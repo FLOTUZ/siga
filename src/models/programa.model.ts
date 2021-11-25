@@ -44,6 +44,11 @@ export class Programa extends Entity {
   })
   fechaFinalizacion?: string;
 
+  @property({
+    type: 'number',
+  })
+  usuarioId?: number;
+
   constructor(data?: Partial<Programa>) {
     super(data);
   }

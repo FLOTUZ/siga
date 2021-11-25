@@ -1,32 +1,31 @@
 import {Entity, model, property} from '@loopback/repository';
 
 @model()
-export class Log extends Entity {
+export class Captura extends Entity {
   @property({
     type: 'number',
     id: true,
     generated: true,
   })
-  idLog?: number;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  descripcion: string;
+  idCaptura?: number;
 
   @property({
     type: 'number',
   })
   usuarioId?: number;
 
-  constructor(data?: Partial<Log>) {
+  @property({
+    type: 'number',
+  })
+  solicitudId?: number;
+
+  constructor(data?: Partial<Captura>) {
     super(data);
   }
 }
 
-export interface LogRelations {
+export interface CapturaRelations {
   // describe navigational properties here
 }
 
-export type LogWithRelations = Log & LogRelations;
+export type CapturaWithRelations = Captura & CapturaRelations;
