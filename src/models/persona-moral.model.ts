@@ -47,7 +47,6 @@ export class PersonaMoral extends Entity {
 
   @property({
     type: 'number',
-    required: true,
   })
   beneficiarioId?: number;
 
