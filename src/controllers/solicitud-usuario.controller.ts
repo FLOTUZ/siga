@@ -1,36 +1,19 @@
-import {
-  Count,
-  CountSchema,
-  Filter,
-  repository,
-  Where,
-} from '@loopback/repository';
-  import {
-  del,
-  get,
-  getModelSchemaRef,
-  getWhereSchemaFor,
-  param,
-  patch,
-  post,
-  requestBody,
-} from '@loopback/rest';
-import {
-Solicitud,
-Captura,
-Usuario,
-} from '../models';
+import {Filter, repository} from '@loopback/repository';
+import {get, getModelSchemaRef, param, post, requestBody} from '@loopback/rest';
+import {Solicitud, Usuario} from '../models';
 import {SolicitudRepository} from '../repositories';
 
 export class SolicitudUsuarioController {
   constructor(
-    @repository(SolicitudRepository) protected solicitudRepository: SolicitudRepository,
-  ) { }
+    @repository(SolicitudRepository)
+    protected solicitudRepository: SolicitudRepository,
+  ) {}
 
-  @get('/solicituds/{id}/usuarios', {
+  @get('/solicitudes/{id}/usuarios', {
     responses: {
       '200': {
-        description: 'Array of Solicitud has many Usuario through Captura',
+        description:
+          'Arreglo de usuarios que participaron en captura de una solicitud',
         content: {
           'application/json': {
             schema: {type: 'array', items: getModelSchemaRef(Usuario)},
@@ -46,10 +29,10 @@ export class SolicitudUsuarioController {
     return this.solicitudRepository.capturadores(id).find(filter);
   }
 
-  @post('/solicituds/{id}/usuarios', {
+  @post('/solicitudes/{id}/usuarios', {
     responses: {
       '200': {
-        description: 'create a Usuario model instance',
+        description: 'Registrar capturador participante en la solicitud',
         content: {'application/json': {schema: getModelSchemaRef(Usuario)}},
       },
     },
@@ -60,17 +43,21 @@ export class SolicitudUsuarioController {
       content: {
         'application/json': {
           schema: getModelSchemaRef(Usuario, {
-            title: 'NewUsuarioInSolicitud',
+            title: 'Nuevo usuario capturador en solicitud',
             exclude: ['idUsuario'],
           }),
         },
       },
-    }) usuario: Omit<Usuario, 'idUsuario'>,
+    })
+    usuario: Omit<Usuario, 'idUsuario'>,
   ): Promise<Usuario> {
     return this.solicitudRepository.capturadores(id).create(usuario);
   }
 
-  @patch('/solicituds/{id}/usuarios', {
+  //  Se dehabilitan los metodos PATCH y DELETE debido a que en caso de dejarlos
+  //  habilitados, serian capaces de alterar las solicitudes que han dado de alta
+
+  /* @patch('/solicituds/{id}/usuarios', {
     responses: {
       '200': {
         description: 'Solicitud.Usuario PATCH success count',
@@ -88,7 +75,8 @@ export class SolicitudUsuarioController {
       },
     })
     usuario: Partial<Usuario>,
-    @param.query.object('where', getWhereSchemaFor(Usuario)) where?: Where<Usuario>,
+    @param.query.object('where', getWhereSchemaFor(Usuario))
+    where?: Where<Usuario>,
   ): Promise<Count> {
     return this.solicitudRepository.capturadores(id).patch(usuario, where);
   }
@@ -103,8 +91,9 @@ export class SolicitudUsuarioController {
   })
   async delete(
     @param.path.number('id') id: number,
-    @param.query.object('where', getWhereSchemaFor(Usuario)) where?: Where<Usuario>,
+    @param.query.object('where', getWhereSchemaFor(Usuario))
+    where?: Where<Usuario>,
   ): Promise<Count> {
     return this.solicitudRepository.capturadores(id).delete(where);
-  }
+  } */
 }

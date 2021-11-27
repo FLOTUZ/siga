@@ -1,20 +1,5 @@
-import {
-  Count,
-  CountSchema,
-  Filter,
-  repository,
-  Where,
-} from '@loopback/repository';
-import {
-  del,
-  get,
-  getModelSchemaRef,
-  getWhereSchemaFor,
-  param,
-  patch,
-  post,
-  requestBody,
-} from '@loopback/rest';
+import {Filter, repository} from '@loopback/repository';
+import {get, getModelSchemaRef, param, post, requestBody} from '@loopback/rest';
 import {Programa, Usuario} from '../models';
 import {UsuarioRepository} from '../repositories';
 
@@ -27,7 +12,7 @@ export class UsuarioProgramaController {
   @get('/usuarios/{id}/programas', {
     responses: {
       '200': {
-        description: 'Array of Usuario has many Programa',
+        description: 'Lista de PROGRAMAS dados de alta por un USUARIO',
         content: {
           'application/json': {
             schema: {type: 'array', items: getModelSchemaRef(Programa)},
@@ -46,7 +31,8 @@ export class UsuarioProgramaController {
   @post('/usuarios/{id}/programas', {
     responses: {
       '200': {
-        description: 'Usuario model instance',
+        description:
+          'Nuevo programa dado de alta por un usuario especificado por su ID',
         content: {'application/json': {schema: getModelSchemaRef(Programa)}},
       },
     },
@@ -57,7 +43,7 @@ export class UsuarioProgramaController {
       content: {
         'application/json': {
           schema: getModelSchemaRef(Programa, {
-            title: 'NewProgramaInUsuario',
+            title: 'Nuevo programa dado de alta por usuario',
             exclude: ['idPrograma'],
             optional: ['usuarioId'],
           }),
@@ -69,6 +55,9 @@ export class UsuarioProgramaController {
     return this.usuarioRepository.programasCapturados(id).create(programa);
   }
 
+  // Estos endpoints se deshabilitan debido a que de lo contrario, se deberia
+  // especificar el ID del usuario para eliminar o editar un PROGRAMA
+  /*
   @patch('/usuarios/{id}/programas', {
     responses: {
       '200': {
@@ -109,5 +98,5 @@ export class UsuarioProgramaController {
     where?: Where<Programa>,
   ): Promise<Count> {
     return this.usuarioRepository.programasCapturados(id).delete(where);
-  }
+  } */
 }

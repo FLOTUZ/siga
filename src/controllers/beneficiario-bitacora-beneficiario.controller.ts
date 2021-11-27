@@ -1,38 +1,25 @@
-import {
-  Count,
-  CountSchema,
-  Filter,
-  repository,
-  Where,
-} from '@loopback/repository';
-import {
-  del,
-  get,
-  getModelSchemaRef,
-  getWhereSchemaFor,
-  param,
-  patch,
-  post,
-  requestBody,
-} from '@loopback/rest';
-import {
-  Beneficiario,
-  BitacoraBeneficiario,
-} from '../models';
+import {Filter, repository} from '@loopback/repository';
+import {get, getModelSchemaRef, param, post, requestBody} from '@loopback/rest';
+import {Beneficiario, BitacoraBeneficiario} from '../models';
 import {BeneficiarioRepository} from '../repositories';
 
 export class BeneficiarioBitacoraBeneficiarioController {
   constructor(
-    @repository(BeneficiarioRepository) protected beneficiarioRepository: BeneficiarioRepository,
-  ) { }
+    @repository(BeneficiarioRepository)
+    protected beneficiarioRepository: BeneficiarioRepository,
+  ) {}
 
-  @get('/beneficiarios/{id}/bitacora-beneficiarios', {
+  @get('/beneficiarios/{id}/log', {
     responses: {
       '200': {
-        description: 'Array of Beneficiario has many BitacoraBeneficiario',
+        description:
+          'Bitacora de la actividad en efectuada sobre un beneficiario ',
         content: {
           'application/json': {
-            schema: {type: 'array', items: getModelSchemaRef(BitacoraBeneficiario)},
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(BitacoraBeneficiario),
+            },
           },
         },
       },
@@ -45,32 +32,41 @@ export class BeneficiarioBitacoraBeneficiarioController {
     return this.beneficiarioRepository.logBeneficiarios(id).find(filter);
   }
 
-  @post('/beneficiarios/{id}/bitacora-beneficiarios', {
+  @post('/beneficiarios/{id}/log', {
     responses: {
       '200': {
-        description: 'Beneficiario model instance',
-        content: {'application/json': {schema: getModelSchemaRef(BitacoraBeneficiario)}},
+        description: 'Registrar nueva actividad en la bitacora beneficiario',
+        content: {
+          'application/json': {schema: getModelSchemaRef(BitacoraBeneficiario)},
+        },
       },
     },
   })
   async create(
-    @param.path.number('id') id: typeof Beneficiario.prototype.idBeneficiario,
+    @param.path.number('id')
+    id: typeof Beneficiario.prototype.idBeneficiario,
     @requestBody({
       content: {
         'application/json': {
           schema: getModelSchemaRef(BitacoraBeneficiario, {
             title: 'NewBitacoraBeneficiarioInBeneficiario',
             exclude: ['idBitacoraBeneficiario'],
-            optional: ['beneficiarioId']
+            optional: ['beneficiarioId'],
           }),
         },
       },
-    }) bitacoraBeneficiario: Omit<BitacoraBeneficiario, 'idBitacoraBeneficiario'>,
+    })
+    bitacoraBeneficiario: Omit<BitacoraBeneficiario, 'idBitacoraBeneficiario'>,
   ): Promise<BitacoraBeneficiario> {
-    return this.beneficiarioRepository.logBeneficiarios(id).create(bitacoraBeneficiario);
+    return this.beneficiarioRepository
+      .logBeneficiarios(id)
+      .create(bitacoraBeneficiario);
   }
 
-  @patch('/beneficiarios/{id}/bitacora-beneficiarios', {
+  //ESTOS ENDPOINTS NO SE UTILIZAN DEBIDO A QUE DARIA LA POSIBILIDAD DE ELIMINAR
+  //EL REGISTRO DE LA BITACORA DE UN BENEFICIARIO
+
+  /*  @patch('/beneficiarios/{id}/bitacora-beneficiarios', {
     responses: {
       '200': {
         description: 'Beneficiario.BitacoraBeneficiario PATCH success count',
@@ -100,11 +96,12 @@ export class BeneficiarioBitacoraBeneficiarioController {
         content: {'application/json': {schema: CountSchema}},
       },
     },
-  })
-  async delete(
-    @param.path.number('id') id: number,
-    @param.query.object('where', getWhereSchemaFor(BitacoraBeneficiario)) where?: Where<BitacoraBeneficiario>,
-  ): Promise<Count> {
-    return this.beneficiarioRepository.logBeneficiarios(id).delete(where);
+    })
+    bitacoraBeneficiario: Omit<BitacoraBeneficiario, 'idBitacoraBeneficiario'>,
+  ): Promise<BitacoraBeneficiario> {
+    return this.beneficiarioRepository
+      .logBeneficiarios(id)
+      .create(bitacoraBeneficiario);
   }
+*/
 }
