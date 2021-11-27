@@ -54,7 +54,7 @@ export class SolicitudUsuarioController {
     return this.solicitudRepository.capturadores(id).create(usuario);
   }
 
-  //  Se dehabilitan los metodos PUT y DELETE debido a que en caso de dejarlos
+  //  Se dehabilitan los metodos PATCH y DELETE debido a que en caso de dejarlos
   //  habilitados, serian capaces de alterar las solicitudes que han dado de alta
 
   /* @patch('/solicituds/{id}/usuarios', {

@@ -6,7 +6,6 @@ import {
   Where,
 } from '@loopback/repository';
 import {
-  del,
   get,
   getModelSchemaRef,
   getWhereSchemaFor,
@@ -27,7 +26,8 @@ export class UsuarioBeneficiarioController {
   @get('/usuarios/{id}/beneficiarios', {
     responses: {
       '200': {
-        description: 'Array of Usuario has many Beneficiario',
+        description:
+          'Obtener lista de beneficiarios relacionados al usuario que los dio de alta',
         content: {
           'application/json': {
             schema: {type: 'array', items: getModelSchemaRef(Beneficiario)},
@@ -46,7 +46,8 @@ export class UsuarioBeneficiarioController {
   @post('/usuarios/{id}/beneficiarios', {
     responses: {
       '200': {
-        description: 'Usuario model instance',
+        description:
+          'Alta de un BENEFICIARIO relacionando con el USUARIO que lo actualiza',
         content: {
           'application/json': {schema: getModelSchemaRef(Beneficiario)},
         },
@@ -76,7 +77,8 @@ export class UsuarioBeneficiarioController {
   @patch('/usuarios/{id}/beneficiarios', {
     responses: {
       '200': {
-        description: 'Usuario.Beneficiario PATCH success count',
+        description:
+          'Actualizar el BENEFICIARIO relacionando con el USUARIO que lo actualiza',
         content: {'application/json': {schema: CountSchema}},
       },
     },
@@ -99,7 +101,9 @@ export class UsuarioBeneficiarioController {
       .patch(beneficiario, where);
   }
 
-  @del('/usuarios/{id}/beneficiarios', {
+  // Se deshabilita la eliminacion de beneficiarios al que ha atendido el usuario
+  // del sistema
+  /* @del('/usuarios/{id}/beneficiarios', {
     responses: {
       '200': {
         description: 'Usuario.Beneficiario DELETE success count',
@@ -113,5 +117,5 @@ export class UsuarioBeneficiarioController {
     where?: Where<Beneficiario>,
   ): Promise<Count> {
     return this.usuarioRepository.beneficiariosDadosDeAlta(id).delete(where);
-  }
+  } */
 }
