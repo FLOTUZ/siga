@@ -7,3 +7,7 @@ export * from './programa.model';
 export * from './solicitud.model';
 export * from './unidad.model';
 export * from './usuario.model';
+export * from './bitacora-beneficiario.model';
+export * from './bitacora-usuario.model';
+export * from './bitacora-solicitud.model';
+export * from './bitacora-programa.model';
