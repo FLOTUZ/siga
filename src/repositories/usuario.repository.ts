@@ -13,12 +13,13 @@ import {
   Programa,
   Solicitud,
   Usuario,
-  UsuarioRelations, BitacoraUsuario} from '../models';
+  UsuarioRelations,
+} from '../models';
 import {BeneficiarioRepository} from './beneficiario.repository';
+import {BitacoraUsuarioRepository} from './bitacora-usuario.repository';
 import {CapturaRepository} from './captura.repository';
 import {ProgramaRepository} from './programa.repository';
 import {SolicitudRepository} from './solicitud.repository';
-import {BitacoraUsuarioRepository} from './bitacora-usuario.repository';
 
 export class UsuarioRepository extends DefaultCrudRepository<
   Usuario,
@@ -52,8 +53,6 @@ export class UsuarioRepository extends DefaultCrudRepository<
     typeof Usuario.prototype.idUsuario
   >;
 
-  public readonly bitacoraUsuarios: HasManyRepositoryFactory<BitacoraUsuario, typeof Usuario.prototype.idUsuario>;
-
   constructor(
     @inject('datasources.Azure') dataSource: AzureDataSource,
     @repository.getter('ProgramaRepository')
@@ -63,11 +62,12 @@ export class UsuarioRepository extends DefaultCrudRepository<
     @repository.getter('CapturaRepository')
     protected capturaRepositoryGetter: Getter<CapturaRepository>,
     @repository.getter('BeneficiarioRepository')
-    protected beneficiarioRepositoryGetter: Getter<BeneficiarioRepository>, @repository.getter('BitacoraUsuarioRepository') protected bitacoraUsuarioRepositoryGetter: Getter<BitacoraUsuarioRepository>,
+    protected beneficiarioRepositoryGetter: Getter<BeneficiarioRepository>,
+    @repository.getter('BitacoraUsuarioRepository')
+    protected bitacoraUsuarioRepositoryGetter: Getter<BitacoraUsuarioRepository>,
   ) {
     super(Usuario, dataSource);
-    this.bitacoraUsuarios = this.createHasManyRepositoryFactoryFor('bitacoraUsuarios', bitacoraUsuarioRepositoryGetter,);
-    this.registerInclusionResolver('bitacoraUsuarios', this.bitacoraUsuarios.inclusionResolver);
+
     this.beneficiarios = this.createHasManyRepositoryFactoryFor(
       'beneficiarios',
       beneficiarioRepositoryGetter,

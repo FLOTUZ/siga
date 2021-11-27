@@ -3,11 +3,11 @@ import {Entity, model, property} from '@loopback/repository';
 @model()
 export class BitacoraUsuario extends Entity {
   @property({
-    type: 'string',
+    type: 'number',
     id: true,
     generated: true,
   })
-  idBitacoraUsuario?: string;
+  idBitacoraUsuario?: number;
 
   @property({
     type: 'string',

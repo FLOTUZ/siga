@@ -15,6 +15,10 @@ export class Comunidad extends Entity {
   })
   nombre: string;
 
+  @property({
+    type: 'number',
+  })
+  beneficiarioId?: number;
 
   constructor(data?: Partial<Comunidad>) {
     super(data);

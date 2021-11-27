@@ -84,6 +84,11 @@ export class Solicitud extends Entity {
   })
   programaId?: number;
 
+  @property({
+    type: 'number',
+  })
+  beneficiarioId?: number;
+
   constructor(data?: Partial<Solicitud>) {
     super(data);
   }
