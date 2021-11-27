@@ -15,16 +15,14 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
-import {
-  Usuario,
-  Programa,
-} from '../models';
+import {Programa, Usuario} from '../models';
 import {UsuarioRepository} from '../repositories';
 
 export class UsuarioProgramaController {
   constructor(
-    @repository(UsuarioRepository) protected usuarioRepository: UsuarioRepository,
-  ) { }
+    @repository(UsuarioRepository)
+    protected usuarioRepository: UsuarioRepository,
+  ) {}
 
   @get('/usuarios/{id}/programas', {
     responses: {
@@ -42,7 +40,7 @@ export class UsuarioProgramaController {
     @param.path.number('id') id: number,
     @param.query.object('filter') filter?: Filter<Programa>,
   ): Promise<Programa[]> {
-    return this.usuarioRepository.programas(id).find(filter);
+    return this.usuarioRepository.programasCapturados(id).find(filter);
   }
 
   @post('/usuarios/{id}/programas', {
@@ -61,13 +59,14 @@ export class UsuarioProgramaController {
           schema: getModelSchemaRef(Programa, {
             title: 'NewProgramaInUsuario',
             exclude: ['idPrograma'],
-            optional: ['usuarioId']
+            optional: ['usuarioId'],
           }),
         },
       },
-    }) programa: Omit<Programa, 'idPrograma'>,
+    })
+    programa: Omit<Programa, 'idPrograma'>,
   ): Promise<Programa> {
-    return this.usuarioRepository.programas(id).create(programa);
+    return this.usuarioRepository.programasCapturados(id).create(programa);
   }
 
   @patch('/usuarios/{id}/programas', {
@@ -88,9 +87,12 @@ export class UsuarioProgramaController {
       },
     })
     programa: Partial<Programa>,
-    @param.query.object('where', getWhereSchemaFor(Programa)) where?: Where<Programa>,
+    @param.query.object('where', getWhereSchemaFor(Programa))
+    where?: Where<Programa>,
   ): Promise<Count> {
-    return this.usuarioRepository.programas(id).patch(programa, where);
+    return this.usuarioRepository
+      .programasCapturados(id)
+      .patch(programa, where);
   }
 
   @del('/usuarios/{id}/programas', {
@@ -103,8 +105,9 @@ export class UsuarioProgramaController {
   })
   async delete(
     @param.path.number('id') id: number,
-    @param.query.object('where', getWhereSchemaFor(Programa)) where?: Where<Programa>,
+    @param.query.object('where', getWhereSchemaFor(Programa))
+    where?: Where<Programa>,
   ): Promise<Count> {
-    return this.usuarioRepository.programas(id).delete(where);
+    return this.usuarioRepository.programasCapturados(id).delete(where);
   }
 }

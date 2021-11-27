@@ -15,16 +15,14 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
-import {
-  Usuario,
-  Solicitud,
-} from '../models';
+import {Solicitud, Usuario} from '../models';
 import {UsuarioRepository} from '../repositories';
 
 export class UsuarioSolicitudController {
   constructor(
-    @repository(UsuarioRepository) protected usuarioRepository: UsuarioRepository,
-  ) { }
+    @repository(UsuarioRepository)
+    protected usuarioRepository: UsuarioRepository,
+  ) {}
 
   @get('/usuarios/{id}/solicitud', {
     responses: {
@@ -42,7 +40,7 @@ export class UsuarioSolicitudController {
     @param.path.number('id') id: number,
     @param.query.object('filter') filter?: Filter<Solicitud>,
   ): Promise<Solicitud> {
-    return this.usuarioRepository.entrega(id).get(filter);
+    return this.usuarioRepository.apoyosEntregados(id).get(filter);
   }
 
   @post('/usuarios/{id}/solicitud', {
@@ -61,13 +59,14 @@ export class UsuarioSolicitudController {
           schema: getModelSchemaRef(Solicitud, {
             title: 'NewSolicitudInUsuario',
             exclude: ['idSolicitud'],
-            optional: ['usuarioEntregaId']
+            optional: ['usuarioEntregaId'],
           }),
         },
       },
-    }) solicitud: Omit<Solicitud, 'idSolicitud'>,
+    })
+    solicitud: Omit<Solicitud, 'idSolicitud'>,
   ): Promise<Solicitud> {
-    return this.usuarioRepository.entrega(id).create(solicitud);
+    return this.usuarioRepository.apoyosEntregados(id).create(solicitud);
   }
 
   @patch('/usuarios/{id}/solicitud', {
@@ -88,9 +87,10 @@ export class UsuarioSolicitudController {
       },
     })
     solicitud: Partial<Solicitud>,
-    @param.query.object('where', getWhereSchemaFor(Solicitud)) where?: Where<Solicitud>,
+    @param.query.object('where', getWhereSchemaFor(Solicitud))
+    where?: Where<Solicitud>,
   ): Promise<Count> {
-    return this.usuarioRepository.entrega(id).patch(solicitud, where);
+    return this.usuarioRepository.apoyosEntregados(id).patch(solicitud, where);
   }
 
   @del('/usuarios/{id}/solicitud', {
@@ -103,8 +103,9 @@ export class UsuarioSolicitudController {
   })
   async delete(
     @param.path.number('id') id: number,
-    @param.query.object('where', getWhereSchemaFor(Solicitud)) where?: Where<Solicitud>,
+    @param.query.object('where', getWhereSchemaFor(Solicitud))
+    where?: Where<Solicitud>,
   ): Promise<Count> {
-    return this.usuarioRepository.entrega(id).delete(where);
+    return this.usuarioRepository.apoyosEntregados(id).delete(where);
   }
 }

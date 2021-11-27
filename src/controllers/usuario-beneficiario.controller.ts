@@ -15,16 +15,14 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
-import {
-  Usuario,
-  Beneficiario,
-} from '../models';
+import {Beneficiario, Usuario} from '../models';
 import {UsuarioRepository} from '../repositories';
 
 export class UsuarioBeneficiarioController {
   constructor(
-    @repository(UsuarioRepository) protected usuarioRepository: UsuarioRepository,
-  ) { }
+    @repository(UsuarioRepository)
+    protected usuarioRepository: UsuarioRepository,
+  ) {}
 
   @get('/usuarios/{id}/beneficiarios', {
     responses: {
@@ -42,14 +40,16 @@ export class UsuarioBeneficiarioController {
     @param.path.number('id') id: number,
     @param.query.object('filter') filter?: Filter<Beneficiario>,
   ): Promise<Beneficiario[]> {
-    return this.usuarioRepository.beneficiarios(id).find(filter);
+    return this.usuarioRepository.beneficiariosDadosDeAlta(id).find(filter);
   }
 
   @post('/usuarios/{id}/beneficiarios', {
     responses: {
       '200': {
         description: 'Usuario model instance',
-        content: {'application/json': {schema: getModelSchemaRef(Beneficiario)}},
+        content: {
+          'application/json': {schema: getModelSchemaRef(Beneficiario)},
+        },
       },
     },
   })
@@ -61,13 +61,16 @@ export class UsuarioBeneficiarioController {
           schema: getModelSchemaRef(Beneficiario, {
             title: 'NewBeneficiarioInUsuario',
             exclude: ['idBeneficiario'],
-            optional: ['usuarioCargaId']
+            optional: ['usuarioCargaId'],
           }),
         },
       },
-    }) beneficiario: Omit<Beneficiario, 'idBeneficiario'>,
+    })
+    beneficiario: Omit<Beneficiario, 'idBeneficiario'>,
   ): Promise<Beneficiario> {
-    return this.usuarioRepository.beneficiarios(id).create(beneficiario);
+    return this.usuarioRepository
+      .beneficiariosDadosDeAlta(id)
+      .create(beneficiario);
   }
 
   @patch('/usuarios/{id}/beneficiarios', {
@@ -88,9 +91,12 @@ export class UsuarioBeneficiarioController {
       },
     })
     beneficiario: Partial<Beneficiario>,
-    @param.query.object('where', getWhereSchemaFor(Beneficiario)) where?: Where<Beneficiario>,
+    @param.query.object('where', getWhereSchemaFor(Beneficiario))
+    where?: Where<Beneficiario>,
   ): Promise<Count> {
-    return this.usuarioRepository.beneficiarios(id).patch(beneficiario, where);
+    return this.usuarioRepository
+      .beneficiariosDadosDeAlta(id)
+      .patch(beneficiario, where);
   }
 
   @del('/usuarios/{id}/beneficiarios', {
@@ -103,8 +109,9 @@ export class UsuarioBeneficiarioController {
   })
   async delete(
     @param.path.number('id') id: number,
-    @param.query.object('where', getWhereSchemaFor(Beneficiario)) where?: Where<Beneficiario>,
+    @param.query.object('where', getWhereSchemaFor(Beneficiario))
+    where?: Where<Beneficiario>,
   ): Promise<Count> {
-    return this.usuarioRepository.beneficiarios(id).delete(where);
+    return this.usuarioRepository.beneficiariosDadosDeAlta(id).delete(where);
   }
 }

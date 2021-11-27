@@ -26,29 +26,29 @@ export class UsuarioRepository extends DefaultCrudRepository<
   typeof Usuario.prototype.idUsuario,
   UsuarioRelations
 > {
-  public readonly programas: HasManyRepositoryFactory<
+  public readonly programasCapturados: HasManyRepositoryFactory<
     Programa,
     typeof Usuario.prototype.idUsuario
   >;
 
-  public readonly captura: HasManyThroughRepositoryFactory<
+  public readonly solicitudesCapturadas: HasManyThroughRepositoryFactory<
     Solicitud,
     typeof Solicitud.prototype.idSolicitud,
     Captura,
     typeof Usuario.prototype.idUsuario
   >;
 
-  public readonly autorizadas: HasManyRepositoryFactory<
+  public readonly solicitudesAutorizadas: HasManyRepositoryFactory<
     Solicitud,
     typeof Usuario.prototype.idUsuario
   >;
 
-  public readonly entrega: HasOneRepositoryFactory<
+  public readonly apoyosEntregados: HasOneRepositoryFactory<
     Solicitud,
     typeof Usuario.prototype.idUsuario
   >;
 
-  public readonly beneficiarios: HasManyRepositoryFactory<
+  public readonly beneficiariosDadosDeAlta: HasManyRepositoryFactory<
     Beneficiario,
     typeof Usuario.prototype.idUsuario
   >;
@@ -68,30 +68,36 @@ export class UsuarioRepository extends DefaultCrudRepository<
   ) {
     super(Usuario, dataSource);
 
-    this.beneficiarios = this.createHasManyRepositoryFactoryFor(
-      'beneficiarios',
+    this.beneficiariosDadosDeAlta = this.createHasManyRepositoryFactoryFor(
+      'beneficiariosDadosDeAlta',
       beneficiarioRepositoryGetter,
     );
-    this.entrega = this.createHasOneRepositoryFactoryFor(
-      'entrega',
+    this.apoyosEntregados = this.createHasOneRepositoryFactoryFor(
+      'apoyosEntregados',
       solicitudRepositoryGetter,
     );
-    this.registerInclusionResolver('entrega', this.entrega.inclusionResolver);
+    this.registerInclusionResolver(
+      'apoyosEntregados',
+      this.apoyosEntregados.inclusionResolver,
+    );
 
-    this.autorizadas = this.createHasManyRepositoryFactoryFor(
-      'autorizadas',
+    this.solicitudesAutorizadas = this.createHasManyRepositoryFactoryFor(
+      'solicitudesAutorizadas',
       solicitudRepositoryGetter,
     );
 
-    this.captura = this.createHasManyThroughRepositoryFactoryFor(
-      'captura',
+    this.solicitudesCapturadas = this.createHasManyThroughRepositoryFactoryFor(
+      'solicitudesCapturadas',
       solicitudRepositoryGetter,
       capturaRepositoryGetter,
     );
-    this.registerInclusionResolver('captura', this.captura.inclusionResolver);
+    this.registerInclusionResolver(
+      'solicitudesCapturadas',
+      this.solicitudesCapturadas.inclusionResolver,
+    );
 
-    this.programas = this.createHasManyRepositoryFactoryFor(
-      'programas',
+    this.programasCapturados = this.createHasManyRepositoryFactoryFor(
+      'programasCapturados',
       programaRepositoryGetter,
     );
   }
