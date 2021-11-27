@@ -1,38 +1,24 @@
-import {
-  Count,
-  CountSchema,
-  Filter,
-  repository,
-  Where,
-} from '@loopback/repository';
-import {
-  del,
-  get,
-  getModelSchemaRef,
-  getWhereSchemaFor,
-  param,
-  patch,
-  post,
-  requestBody,
-} from '@loopback/rest';
-import {
-  Solicitud,
-  BitacoraSolicitud,
-} from '../models';
+import {Filter, repository} from '@loopback/repository';
+import {get, getModelSchemaRef, param, post, requestBody} from '@loopback/rest';
+import {BitacoraSolicitud, Solicitud} from '../models';
 import {SolicitudRepository} from '../repositories';
 
 export class SolicitudBitacoraSolicitudController {
   constructor(
-    @repository(SolicitudRepository) protected solicitudRepository: SolicitudRepository,
-  ) { }
+    @repository(SolicitudRepository)
+    protected solicitudRepository: SolicitudRepository,
+  ) {}
 
-  @get('/solicituds/{id}/bitacora-solicituds', {
+  @get('/solicitudes/{id}/log', {
     responses: {
       '200': {
-        description: 'Array of Solicitud has many BitacoraSolicitud',
+        description: 'Arreglo de logs de actividad en una solicitud',
         content: {
           'application/json': {
-            schema: {type: 'array', items: getModelSchemaRef(BitacoraSolicitud)},
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(BitacoraSolicitud),
+            },
           },
         },
       },
@@ -45,11 +31,13 @@ export class SolicitudBitacoraSolicitudController {
     return this.solicitudRepository.logSolicitud(id).find(filter);
   }
 
-  @post('/solicituds/{id}/bitacora-solicituds', {
+  @post('/solicitudes/{id}/log', {
     responses: {
       '200': {
-        description: 'Solicitud model instance',
-        content: {'application/json': {schema: getModelSchemaRef(BitacoraSolicitud)}},
+        description: 'Registrar nueva actividad en el log de la solicitud',
+        content: {
+          'application/json': {schema: getModelSchemaRef(BitacoraSolicitud)},
+        },
       },
     },
   })
@@ -61,16 +49,20 @@ export class SolicitudBitacoraSolicitudController {
           schema: getModelSchemaRef(BitacoraSolicitud, {
             title: 'NewBitacoraSolicitudInSolicitud',
             exclude: ['idBitacoraSolicitud'],
-            optional: ['solicitudId']
+            optional: ['solicitudId'],
           }),
         },
       },
-    }) bitacoraSolicitud: Omit<BitacoraSolicitud, 'idBitacoraSolicitud'>,
+    })
+    bitacoraSolicitud: Omit<BitacoraSolicitud, 'idBitacoraSolicitud'>,
   ): Promise<BitacoraSolicitud> {
     return this.solicitudRepository.logSolicitud(id).create(bitacoraSolicitud);
   }
 
-  @patch('/solicituds/{id}/bitacora-solicituds', {
+  //ESTOS ENDPOINTS NO SE UTILIZAN DEBIDO A QUE DARIA LA POSIBILIDAD DE ELIMINAR
+  //EL REGISTRO DE LA BITACORA DE UNA SOLICITUD
+
+  /* @patch('/solicituds/{id}/bitacora-solicituds', {
     responses: {
       '200': {
         description: 'Solicitud.BitacoraSolicitud PATCH success count',
@@ -106,5 +98,5 @@ export class SolicitudBitacoraSolicitudController {
     @param.query.object('where', getWhereSchemaFor(BitacoraSolicitud)) where?: Where<BitacoraSolicitud>,
   ): Promise<Count> {
     return this.solicitudRepository.logSolicitud(id).delete(where);
-  }
+  } */
 }
