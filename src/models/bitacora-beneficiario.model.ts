@@ -1,13 +1,13 @@
 import {Entity, model, property} from '@loopback/repository';
 
 @model()
-export class Log extends Entity {
+export class BitacoraBeneficiario extends Entity {
   @property({
     type: 'number',
     id: true,
     generated: true,
   })
-  idLog?: number;
+  idBitacoraBeneficiario?: number;
 
   @property({
     type: 'string',
@@ -18,15 +18,15 @@ export class Log extends Entity {
   @property({
     type: 'number',
   })
-  usuarioId?: number;
+  beneficiarioId?: number;
 
-  constructor(data?: Partial<Log>) {
+  constructor(data?: Partial<BitacoraBeneficiario>) {
     super(data);
   }
 }
 
-export interface LogRelations {
+export interface BitacoraBeneficiarioRelations {
   // describe navigational properties here
 }
 
-export type LogWithRelations = Log & LogRelations;
+export type BitacoraBeneficiarioWithRelations = BitacoraBeneficiario & BitacoraBeneficiarioRelations;

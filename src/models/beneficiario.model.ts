@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, hasMany, model, property} from '@loopback/repository';
+import {BitacoraBeneficiario} from './bitacora-beneficiario.model';
 
 @model()
 export class Beneficiario extends Entity {
@@ -57,6 +58,9 @@ export class Beneficiario extends Entity {
     type: 'number',
   })
   usuarioCargaId?: number;
+
+  @hasMany(() => BitacoraBeneficiario)
+  logBeneficiario: BitacoraBeneficiario[];
 
   constructor(data?: Partial<Beneficiario>) {
     super(data);

@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, hasMany, model, property} from '@loopback/repository';
+import {BitacoraSolicitud} from './bitacora-solicitud.model';
 
 @model()
 export class Solicitud extends Entity {
@@ -74,6 +75,9 @@ export class Solicitud extends Entity {
     type: 'number',
   })
   usuarioEntregaId?: number;
+
+  @hasMany(() => BitacoraSolicitud)
+  logSolicitud: BitacoraSolicitud[];
 
   constructor(data?: Partial<Solicitud>) {
     super(data);

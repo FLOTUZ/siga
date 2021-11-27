@@ -10,28 +10,21 @@ import {AzureDataSource} from '../datasources';
 import {
   Beneficiario,
   Captura,
-  Log,
   Programa,
   Solicitud,
   Usuario,
-  UsuarioRelations,
-} from '../models';
+  UsuarioRelations, BitacoraUsuario} from '../models';
 import {BeneficiarioRepository} from './beneficiario.repository';
 import {CapturaRepository} from './captura.repository';
-import {LogRepository} from './log.repository';
 import {ProgramaRepository} from './programa.repository';
 import {SolicitudRepository} from './solicitud.repository';
+import {BitacoraUsuarioRepository} from './bitacora-usuario.repository';
 
 export class UsuarioRepository extends DefaultCrudRepository<
   Usuario,
   typeof Usuario.prototype.idUsuario,
   UsuarioRelations
 > {
-  public readonly logs: HasManyRepositoryFactory<
-    Log,
-    typeof Usuario.prototype.idUsuario
-  >;
-
   public readonly programas: HasManyRepositoryFactory<
     Programa,
     typeof Usuario.prototype.idUsuario
@@ -59,10 +52,10 @@ export class UsuarioRepository extends DefaultCrudRepository<
     typeof Usuario.prototype.idUsuario
   >;
 
+  public readonly bitacoraUsuarios: HasManyRepositoryFactory<BitacoraUsuario, typeof Usuario.prototype.idUsuario>;
+
   constructor(
     @inject('datasources.Azure') dataSource: AzureDataSource,
-    @repository.getter('LogRepository')
-    protected logRepositoryGetter: Getter<LogRepository>,
     @repository.getter('ProgramaRepository')
     protected programaRepositoryGetter: Getter<ProgramaRepository>,
     @repository.getter('SolicitudRepository')
@@ -70,9 +63,11 @@ export class UsuarioRepository extends DefaultCrudRepository<
     @repository.getter('CapturaRepository')
     protected capturaRepositoryGetter: Getter<CapturaRepository>,
     @repository.getter('BeneficiarioRepository')
-    protected beneficiarioRepositoryGetter: Getter<BeneficiarioRepository>,
+    protected beneficiarioRepositoryGetter: Getter<BeneficiarioRepository>, @repository.getter('BitacoraUsuarioRepository') protected bitacoraUsuarioRepositoryGetter: Getter<BitacoraUsuarioRepository>,
   ) {
     super(Usuario, dataSource);
+    this.bitacoraUsuarios = this.createHasManyRepositoryFactoryFor('bitacoraUsuarios', bitacoraUsuarioRepositoryGetter,);
+    this.registerInclusionResolver('bitacoraUsuarios', this.bitacoraUsuarios.inclusionResolver);
     this.beneficiarios = this.createHasManyRepositoryFactoryFor(
       'beneficiarios',
       beneficiarioRepositoryGetter,
@@ -98,10 +93,6 @@ export class UsuarioRepository extends DefaultCrudRepository<
     this.programas = this.createHasManyRepositoryFactoryFor(
       'programas',
       programaRepositoryGetter,
-    );
-    this.logs = this.createHasManyRepositoryFactoryFor(
-      'logs',
-      logRepositoryGetter,
     );
   }
 }
