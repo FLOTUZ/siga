@@ -7,3 +7,4 @@ export * from './beneficiario-bitacora-beneficiario.controller';
 export * from './beneficiario-persona-moral.controller';
 export * from './beneficiario-persona-fisica.controller';
 export * from './solicitud-bitacora-solicitud.controller';
+export * from './solicitud-usuario.controller';
