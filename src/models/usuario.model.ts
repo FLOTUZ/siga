@@ -84,11 +84,11 @@ export class Usuario extends Entity {
   })
   activo: boolean;
 
-  @hasMany(() => Programa)
-  programasCapturados: Programa[];
-
   @hasMany(() => Solicitud, {through: {model: () => Captura}})
   solicitudesCapturadas: Solicitud[];
+
+  @hasMany(() => Programa)
+  programasCapturados: Programa[];
 
   @hasMany(() => Solicitud, {keyTo: 'usuarioAutorizadorId'})
   solicitudesAutorizadas: Solicitud[];
