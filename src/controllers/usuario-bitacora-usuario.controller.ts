@@ -1,35 +1,18 @@
-import {
-  Count,
-  CountSchema,
-  Filter,
-  repository,
-  Where,
-} from '@loopback/repository';
-import {
-  del,
-  get,
-  getModelSchemaRef,
-  getWhereSchemaFor,
-  param,
-  patch,
-  post,
-  requestBody,
-} from '@loopback/rest';
-import {
-  Usuario,
-  BitacoraUsuario,
-} from '../models';
+import {Filter, repository} from '@loopback/repository';
+import {get, getModelSchemaRef, param, post, requestBody} from '@loopback/rest';
+import {BitacoraUsuario, Usuario} from '../models';
 import {UsuarioRepository} from '../repositories';
 
 export class UsuarioBitacoraUsuarioController {
   constructor(
-    @repository(UsuarioRepository) protected usuarioRepository: UsuarioRepository,
-  ) { }
+    @repository(UsuarioRepository)
+    protected usuarioRepository: UsuarioRepository,
+  ) {}
 
-  @get('/usuarios/{id}/bitacora-usuarios', {
+  @get('/usuarios/{id}/log', {
     responses: {
       '200': {
-        description: 'Array of Usuario has many BitacoraUsuario',
+        description: 'Listado de la bitacora de actividad de un usuario',
         content: {
           'application/json': {
             schema: {type: 'array', items: getModelSchemaRef(BitacoraUsuario)},
@@ -45,11 +28,13 @@ export class UsuarioBitacoraUsuarioController {
     return this.usuarioRepository.bitacoraUsuario(id).find(filter);
   }
 
-  @post('/usuarios/{id}/bitacora-usuarios', {
+  @post('/usuarios/{id}/log', {
     responses: {
       '200': {
-        description: 'Usuario model instance',
-        content: {'application/json': {schema: getModelSchemaRef(BitacoraUsuario)}},
+        description: 'Alta de registro en bitacora de usuario',
+        content: {
+          'application/json': {schema: getModelSchemaRef(BitacoraUsuario)},
+        },
       },
     },
   })
@@ -59,18 +44,22 @@ export class UsuarioBitacoraUsuarioController {
       content: {
         'application/json': {
           schema: getModelSchemaRef(BitacoraUsuario, {
-            title: 'NewBitacoraUsuarioInUsuario',
+            title: 'Nuevo registro en la bitacora de usuario',
             exclude: ['idBitacoraUsuario'],
-            optional: ['usuarioId']
+            optional: ['usuarioId'],
           }),
         },
       },
-    }) bitacoraUsuario: Omit<BitacoraUsuario, 'idBitacoraUsuario'>,
+    })
+    bitacoraUsuario: Omit<BitacoraUsuario, 'idBitacoraUsuario'>,
   ): Promise<BitacoraUsuario> {
     return this.usuarioRepository.bitacoraUsuario(id).create(bitacoraUsuario);
   }
 
-  @patch('/usuarios/{id}/bitacora-usuarios', {
+  // ESTOS ENDPOINTS NO SE UTILIZAN DEBIDO A QUE DAN LA POSIBILIDAD DE ELIMINAR
+  // EL REGISTRO DE LA BITACORA DE UN USUARIO
+
+  /* @patch('/usuarios/{id}/bitacora-usuarios', {
     responses: {
       '200': {
         description: 'Usuario.BitacoraUsuario PATCH success count',
@@ -106,5 +95,5 @@ export class UsuarioBitacoraUsuarioController {
     @param.query.object('where', getWhereSchemaFor(BitacoraUsuario)) where?: Where<BitacoraUsuario>,
   ): Promise<Count> {
     return this.usuarioRepository.bitacoraUsuario(id).delete(where);
-  }
+  } */
 }
