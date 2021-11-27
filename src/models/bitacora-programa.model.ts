@@ -15,6 +15,10 @@ export class BitacoraPrograma extends Entity {
   })
   descripcion: string;
 
+  @property({
+    type: 'number',
+  })
+  programaId?: number;
 
   constructor(data?: Partial<BitacoraPrograma>) {
     super(data);

@@ -1,5 +1,6 @@
 import {Entity, hasMany, hasOne, model, property} from '@loopback/repository';
 import {Beneficiario} from './beneficiario.model';
+import {BitacoraUsuario} from './bitacora-usuario.model';
 import {Captura} from './captura.model';
 import {Programa} from './programa.model';
 import {Solicitud} from './solicitud.model';
@@ -78,6 +79,12 @@ export class Usuario extends Entity {
   })
   administraSistema?: boolean;
 
+  @property({
+    type: 'boolean',
+    default: false,
+  })
+  activo: boolean;
+
   @hasMany(() => Programa)
   programas: Programa[];
 
@@ -92,6 +99,9 @@ export class Usuario extends Entity {
 
   @hasMany(() => Beneficiario, {keyTo: 'usuarioCargaId'})
   beneficiarios: Beneficiario[];
+
+  @hasMany(() => BitacoraUsuario)
+  logUsuario: BitacoraUsuario[];
 
   constructor(data?: Partial<Usuario>) {
     super(data);

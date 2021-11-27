@@ -15,6 +15,11 @@ export class BitacoraUsuario extends Entity {
   })
   descripcion: string;
 
+  @property({
+    type: 'number',
+  })
+  usuarioId?: number;
+
   constructor(data?: Partial<BitacoraUsuario>) {
     super(data);
   }

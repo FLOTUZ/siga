@@ -15,6 +15,10 @@ export class BitacoraSolicitud extends Entity {
   })
   descripcion: string;
 
+  @property({
+    type: 'number',
+  })
+  solicitudId?: number;
 
   constructor(data?: Partial<BitacoraSolicitud>) {
     super(data);
