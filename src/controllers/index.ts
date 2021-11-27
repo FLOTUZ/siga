@@ -4,3 +4,4 @@ export * from './usuario-bitacora-usuario.controller';
 export * from './usuario-programa.controller';
 export * from './usuario-solicitud.controller';
 export * from './beneficiario-bitacora-beneficiario.controller';
+export * from './beneficiario-persona-moral.controller';

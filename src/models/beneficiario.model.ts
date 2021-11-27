@@ -1,6 +1,7 @@
-import {Entity, hasMany, model, property} from '@loopback/repository';
-import {Solicitud} from './solicitud.model';
+import {Entity, hasMany, hasOne, model, property} from '@loopback/repository';
 import {BitacoraBeneficiario} from './bitacora-beneficiario.model';
+import {PersonaMoral} from './persona-moral.model';
+import {Solicitud} from './solicitud.model';
 
 @model()
 export class Beneficiario extends Entity {
@@ -70,6 +71,9 @@ export class Beneficiario extends Entity {
 
   @hasMany(() => BitacoraBeneficiario)
   logBeneficiarios: BitacoraBeneficiario[];
+
+  @hasOne(() => PersonaMoral)
+  personaMoral?: PersonaMoral;
 
   constructor(data?: Partial<Beneficiario>) {
     super(data);
