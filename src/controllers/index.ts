@@ -11,3 +11,4 @@ export * from './bitacora-programa.controller';
 export * from './bitacora-solicitud.controller';
 export * from './bitacora-usuario.controller';
 export * from './captura.controller';
+export * from './comunidad.controller';
