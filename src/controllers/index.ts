@@ -6,3 +6,4 @@ export * from './usuario-beneficiario.controller';
 export * from './usuario-bitacora-usuario.controller';
 export * from './usuario-programa.controller';
 export * from './beneficiario.controller';
+export * from './bitacora-beneficiario.controller';
