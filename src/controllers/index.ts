@@ -8,3 +8,4 @@ export * from './usuario-programa.controller';
 export * from './beneficiario.controller';
 export * from './bitacora-beneficiario.controller';
 export * from './bitacora-programa.controller';
+export * from './bitacora-solicitud.controller';
