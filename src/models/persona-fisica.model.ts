@@ -39,6 +39,10 @@ export class PersonaFisica extends Entity {
   })
   curp: string;
 
+  @property({
+    type: 'number',
+  })
+  beneficiarioId?: number;
 
   constructor(data?: Partial<PersonaFisica>) {
     super(data);
