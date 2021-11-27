@@ -79,6 +79,11 @@ export class Solicitud extends Entity {
   @hasMany(() => BitacoraSolicitud)
   logSolicitud: BitacoraSolicitud[];
 
+  @property({
+    type: 'number',
+  })
+  programaId?: number;
+
   constructor(data?: Partial<Solicitud>) {
     super(data);
   }

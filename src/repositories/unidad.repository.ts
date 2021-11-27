@@ -8,9 +8,7 @@ export class UnidadRepository extends DefaultCrudRepository<
   typeof Unidad.prototype.idUnidad,
   UnidadRelations
 > {
-  constructor(
-    @inject('datasources.Azure') dataSource: AzureDataSource,
-  ) {
+  constructor(@inject('datasources.Azure') dataSource: AzureDataSource) {
     super(Unidad, dataSource);
   }
 }
