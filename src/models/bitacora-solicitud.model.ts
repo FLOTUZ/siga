@@ -29,4 +29,5 @@ export interface BitacoraSolicitudRelations {
   // describe navigational properties here
 }
 
-export type BitacoraSolicitudWithRelations = BitacoraSolicitud & BitacoraSolicitudRelations;
+export type BitacoraSolicitudWithRelations = BitacoraSolicitud &
+  BitacoraSolicitudRelations;
