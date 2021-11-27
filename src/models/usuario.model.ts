@@ -3,6 +3,7 @@ import {Beneficiario} from './beneficiario.model';
 import {Captura} from './captura.model';
 import {Programa} from './programa.model';
 import {Solicitud} from './solicitud.model';
+import {BitacoraUsuario} from './bitacora-usuario.model';
 
 @model()
 export class Usuario extends Entity {
@@ -98,6 +99,9 @@ export class Usuario extends Entity {
 
   @hasMany(() => Beneficiario, {keyTo: 'usuarioCargaId'})
   beneficiariosDadosDeAlta: Beneficiario[];
+
+  @hasMany(() => BitacoraUsuario)
+  bitacoraUsuario: BitacoraUsuario[];
 
   constructor(data?: Partial<Usuario>) {
     super(data);
