@@ -17,3 +17,4 @@ export * from './persona-moral.controller';
 export * from './programa.controller';
 export * from './solicitud.controller';
 export * from './unidad.controller';
+export * from './usuario.controller';
