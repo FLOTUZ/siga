@@ -1,7 +1,6 @@
-import {Entity, hasMany, hasOne, model, property} from '@loopback/repository';
-import {BitacoraBeneficiario} from './bitacora-beneficiario.model';
-import {Comunidad} from './comunidad.model';
+import {Entity, hasMany, model, property} from '@loopback/repository';
 import {Solicitud} from './solicitud.model';
+import {BitacoraBeneficiario} from './bitacora-beneficiario.model';
 
 @model()
 export class Beneficiario extends Entity {
@@ -61,14 +60,16 @@ export class Beneficiario extends Entity {
   })
   usuarioCargaId?: number;
 
-  @hasMany(() => BitacoraBeneficiario)
-  bitacoraBeneficiario: BitacoraBeneficiario[];
-
   @hasMany(() => Solicitud)
   solicitudes: Solicitud[];
 
-  @hasOne(() => Comunidad)
-  comunidad: Comunidad;
+  @property({
+    type: 'number',
+  })
+  comunidadId?: number;
+
+  @hasMany(() => BitacoraBeneficiario)
+  logBeneficiarios: BitacoraBeneficiario[];
 
   constructor(data?: Partial<Beneficiario>) {
     super(data);

@@ -45,12 +45,6 @@ export class PersonaMoral extends Entity {
   })
   correoRep: string;
 
-  @property({
-    type: 'number',
-    required: true,
-  })
-  beneficiarioId: string;
-
   constructor(data?: Partial<PersonaMoral>) {
     super(data);
   }

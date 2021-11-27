@@ -29,4 +29,5 @@ export interface BitacoraBeneficiarioRelations {
   // describe navigational properties here
 }
 
-export type BitacoraBeneficiarioWithRelations = BitacoraBeneficiario & BitacoraBeneficiarioRelations;
+export type BitacoraBeneficiarioWithRelations = BitacoraBeneficiario &
+  BitacoraBeneficiarioRelations;

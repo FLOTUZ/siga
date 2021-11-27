@@ -1,25 +1,25 @@
 import {Getter, inject} from '@loopback/core';
-import {DefaultCrudRepository, repository} from '@loopback/repository';
+import {DefaultCrudRepository, repository, HasManyRepositoryFactory} from '@loopback/repository';
 import {AzureDataSource} from '../datasources';
-import {Beneficiario, BeneficiarioRelations} from '../models';
-import {BitacoraBeneficiarioRepository} from './bitacora-beneficiario.repository';
-import {ComunidadRepository} from './comunidad.repository';
+import {Beneficiario, BeneficiarioRelations, BitacoraBeneficiario} from '../models';
 import {SolicitudRepository} from './solicitud.repository';
+import {BitacoraBeneficiarioRepository} from './bitacora-beneficiario.repository';
 
 export class BeneficiarioRepository extends DefaultCrudRepository<
   Beneficiario,
   typeof Beneficiario.prototype.idBeneficiario,
   BeneficiarioRelations
 > {
+
+  public readonly logBeneficiarios: HasManyRepositoryFactory<BitacoraBeneficiario, typeof Beneficiario.prototype.idBeneficiario>;
+
   constructor(
     @inject('datasources.Azure') dataSource: AzureDataSource,
-    @repository.getter('BitacoraBeneficiarioRepository')
-    protected bitacoraBeneficiarioRepositoryGetter: Getter<BitacoraBeneficiarioRepository>,
     @repository.getter('SolicitudRepository')
-    protected solicitudRepositoryGetter: Getter<SolicitudRepository>,
-    @repository.getter('ComunidadRepository')
-    protected comunidadRepositoryGetter: Getter<ComunidadRepository>,
+    protected solicitudRepositoryGetter: Getter<SolicitudRepository>, @repository.getter('BitacoraBeneficiarioRepository') protected bitacoraBeneficiarioRepositoryGetter: Getter<BitacoraBeneficiarioRepository>,
   ) {
     super(Beneficiario, dataSource);
+    this.logBeneficiarios = this.createHasManyRepositoryFactoryFor('logBeneficiarios', bitacoraBeneficiarioRepositoryGetter,);
+    this.registerInclusionResolver('logBeneficiarios', this.logBeneficiarios.inclusionResolver);
   }
 }
