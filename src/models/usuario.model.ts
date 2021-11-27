@@ -1,9 +1,8 @@
-import {Entity, hasMany, model, property, hasOne} from '@loopback/repository';
+import {Entity, hasMany, hasOne, model, property} from '@loopback/repository';
+import {Beneficiario} from './beneficiario.model';
 import {Captura} from './captura.model';
-import {Log} from './log.model';
 import {Programa} from './programa.model';
 import {Solicitud} from './solicitud.model';
-import {Beneficiario} from './beneficiario.model';
 
 @model()
 export class Usuario extends Entity {
@@ -78,9 +77,6 @@ export class Usuario extends Entity {
     default: false,
   })
   administraSistema?: boolean;
-
-  @hasMany(() => Log)
-  logs: Log[];
 
   @hasMany(() => Programa)
   programas: Programa[];
