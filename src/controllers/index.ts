@@ -15,3 +15,4 @@ export * from './comunidad.controller';
 export * from './persona-fisica.controller';
 export * from './persona-moral.controller';
 export * from './programa.controller';
+export * from './solicitud.controller';
