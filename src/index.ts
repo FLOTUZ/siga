@@ -9,7 +9,6 @@ export async function main(options: ApplicationConfig = {}) {
 
   const url = app.restServer.url;
   console.log(`Servidor correindo en ${url}`);
-  console.log(`Intenta ${url}`);
 
   return app;
 }
