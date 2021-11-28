@@ -5,7 +5,7 @@ const config = {
   name: 'Azure',
   connector: 'mysql',
   url: '',
-  host: 'localhost',
+  host: '104.43.202.176',
   port: 3307,
   user: 'emmanuel',
   password: 'sintezoide',
