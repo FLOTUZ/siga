@@ -8,9 +8,7 @@ export class BitacoraSolicitudRepository extends DefaultCrudRepository<
   typeof BitacoraSolicitud.prototype.idBitacoraSolicitud,
   BitacoraSolicitudRelations
 > {
-  constructor(
-    @inject('datasources.Azure') dataSource: AzureDataSource,
-  ) {
+  constructor(@inject('datasources.Azure') dataSource: AzureDataSource) {
     super(BitacoraSolicitud, dataSource);
   }
 }

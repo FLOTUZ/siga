@@ -23,13 +23,15 @@ import {BitacoraBeneficiarioRepository} from '../repositories';
 export class BitacoraBeneficiarioController {
   constructor(
     @repository(BitacoraBeneficiarioRepository)
-    public bitacoraBeneficiarioRepository : BitacoraBeneficiarioRepository,
+    public bitacoraBeneficiarioRepository: BitacoraBeneficiarioRepository,
   ) {}
 
   @post('/beneficiario-log')
   @response(200, {
     description: 'BitacoraBeneficiario model instance',
-    content: {'application/json': {schema: getModelSchemaRef(BitacoraBeneficiario)}},
+    content: {
+      'application/json': {schema: getModelSchemaRef(BitacoraBeneficiario)},
+    },
   })
   async create(
     @requestBody({
@@ -65,7 +67,9 @@ export class BitacoraBeneficiarioController {
       'application/json': {
         schema: {
           type: 'array',
-          items: getModelSchemaRef(BitacoraBeneficiario, {includeRelations: true}),
+          items: getModelSchemaRef(BitacoraBeneficiario, {
+            includeRelations: true,
+          }),
         },
       },
     },
@@ -92,7 +96,10 @@ export class BitacoraBeneficiarioController {
     bitacoraBeneficiario: BitacoraBeneficiario,
     @param.where(BitacoraBeneficiario) where?: Where<BitacoraBeneficiario>,
   ): Promise<Count> {
-    return this.bitacoraBeneficiarioRepository.updateAll(bitacoraBeneficiario, where);
+    return this.bitacoraBeneficiarioRepository.updateAll(
+      bitacoraBeneficiario,
+      where,
+    );
   }
 
   @get('/beneficiario-log/{id}')
@@ -100,13 +107,16 @@ export class BitacoraBeneficiarioController {
     description: 'BitacoraBeneficiario model instance',
     content: {
       'application/json': {
-        schema: getModelSchemaRef(BitacoraBeneficiario, {includeRelations: true}),
+        schema: getModelSchemaRef(BitacoraBeneficiario, {
+          includeRelations: true,
+        }),
       },
     },
   })
   async findById(
     @param.path.number('id') id: number,
-    @param.filter(BitacoraBeneficiario, {exclude: 'where'}) filter?: FilterExcludingWhere<BitacoraBeneficiario>
+    @param.filter(BitacoraBeneficiario, {exclude: 'where'})
+    filter?: FilterExcludingWhere<BitacoraBeneficiario>,
   ): Promise<BitacoraBeneficiario> {
     return this.bitacoraBeneficiarioRepository.findById(id, filter);
   }
@@ -126,7 +136,10 @@ export class BitacoraBeneficiarioController {
     })
     bitacoraBeneficiario: BitacoraBeneficiario,
   ): Promise<void> {
-    await this.bitacoraBeneficiarioRepository.updateById(id, bitacoraBeneficiario);
+    await this.bitacoraBeneficiarioRepository.updateById(
+      id,
+      bitacoraBeneficiario,
+    );
   }
 
   @put('/beneficiario-log/{id}')
@@ -137,7 +150,10 @@ export class BitacoraBeneficiarioController {
     @param.path.number('id') id: number,
     @requestBody() bitacoraBeneficiario: BitacoraBeneficiario,
   ): Promise<void> {
-    await this.bitacoraBeneficiarioRepository.replaceById(id, bitacoraBeneficiario);
+    await this.bitacoraBeneficiarioRepository.replaceById(
+      id,
+      bitacoraBeneficiario,
+    );
   }
 
   @del('/beneficiario-log/{id}')

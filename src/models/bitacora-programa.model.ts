@@ -29,4 +29,5 @@ export interface BitacoraProgramaRelations {
   // describe navigational properties here
 }
 
-export type BitacoraProgramaWithRelations = BitacoraPrograma & BitacoraProgramaRelations;
+export type BitacoraProgramaWithRelations = BitacoraPrograma &
+  BitacoraProgramaRelations;

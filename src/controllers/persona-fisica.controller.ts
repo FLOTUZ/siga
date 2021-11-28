@@ -23,7 +23,7 @@ import {PersonaFisicaRepository} from '../repositories';
 export class PersonaFisicaController {
   constructor(
     @repository(PersonaFisicaRepository)
-    public personaFisicaRepository : PersonaFisicaRepository,
+    public personaFisicaRepository: PersonaFisicaRepository,
   ) {}
 
   @post('/personas-fisicas')
@@ -106,7 +106,8 @@ export class PersonaFisicaController {
   })
   async findById(
     @param.path.number('id') id: number,
-    @param.filter(PersonaFisica, {exclude: 'where'}) filter?: FilterExcludingWhere<PersonaFisica>
+    @param.filter(PersonaFisica, {exclude: 'where'})
+    filter?: FilterExcludingWhere<PersonaFisica>,
   ): Promise<PersonaFisica> {
     return this.personaFisicaRepository.findById(id, filter);
   }

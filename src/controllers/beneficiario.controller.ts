@@ -23,7 +23,7 @@ import {BeneficiarioRepository} from '../repositories';
 export class BeneficiarioController {
   constructor(
     @repository(BeneficiarioRepository)
-    public beneficiarioRepository : BeneficiarioRepository,
+    public beneficiarioRepository: BeneficiarioRepository,
   ) {}
 
   @post('/beneficiarios')
@@ -106,7 +106,8 @@ export class BeneficiarioController {
   })
   async findById(
     @param.path.number('id') id: number,
-    @param.filter(Beneficiario, {exclude: 'where'}) filter?: FilterExcludingWhere<Beneficiario>
+    @param.filter(Beneficiario, {exclude: 'where'})
+    filter?: FilterExcludingWhere<Beneficiario>,
   ): Promise<Beneficiario> {
     return this.beneficiarioRepository.findById(id, filter);
   }

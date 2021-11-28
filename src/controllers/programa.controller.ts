@@ -23,7 +23,7 @@ import {ProgramaRepository} from '../repositories';
 export class ProgramaController {
   constructor(
     @repository(ProgramaRepository)
-    public programaRepository : ProgramaRepository,
+    public programaRepository: ProgramaRepository,
   ) {}
 
   @post('/programas')
@@ -52,9 +52,7 @@ export class ProgramaController {
     description: 'Programa model count',
     content: {'application/json': {schema: CountSchema}},
   })
-  async count(
-    @param.where(Programa) where?: Where<Programa>,
-  ): Promise<Count> {
+  async count(@param.where(Programa) where?: Where<Programa>): Promise<Count> {
     return this.programaRepository.count(where);
   }
 
@@ -106,7 +104,8 @@ export class ProgramaController {
   })
   async findById(
     @param.path.number('id') id: number,
-    @param.filter(Programa, {exclude: 'where'}) filter?: FilterExcludingWhere<Programa>
+    @param.filter(Programa, {exclude: 'where'})
+    filter?: FilterExcludingWhere<Programa>,
   ): Promise<Programa> {
     return this.programaRepository.findById(id, filter);
   }

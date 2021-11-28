@@ -8,9 +8,7 @@ export class PersonaFisicaRepository extends DefaultCrudRepository<
   typeof PersonaFisica.prototype.idPersonaFisica,
   PersonaFisicaRelations
 > {
-  constructor(
-    @inject('datasources.Azure') dataSource: AzureDataSource,
-  ) {
+  constructor(@inject('datasources.Azure') dataSource: AzureDataSource) {
     super(PersonaFisica, dataSource);
   }
 }

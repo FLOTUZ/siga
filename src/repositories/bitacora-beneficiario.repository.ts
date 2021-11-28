@@ -8,9 +8,7 @@ export class BitacoraBeneficiarioRepository extends DefaultCrudRepository<
   typeof BitacoraBeneficiario.prototype.idBitacoraBeneficiario,
   BitacoraBeneficiarioRelations
 > {
-  constructor(
-    @inject('datasources.Azure') dataSource: AzureDataSource,
-  ) {
+  constructor(@inject('datasources.Azure') dataSource: AzureDataSource) {
     super(BitacoraBeneficiario, dataSource);
   }
 }

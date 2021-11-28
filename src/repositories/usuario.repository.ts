@@ -13,7 +13,9 @@ import {
   Programa,
   Solicitud,
   Usuario,
-  UsuarioRelations, BitacoraUsuario} from '../models';
+  UsuarioRelations,
+  BitacoraUsuario,
+} from '../models';
 import {BeneficiarioRepository} from './beneficiario.repository';
 import {BitacoraUsuarioRepository} from './bitacora-usuario.repository';
 import {CapturaRepository} from './captura.repository';
@@ -52,7 +54,10 @@ export class UsuarioRepository extends DefaultCrudRepository<
     typeof Usuario.prototype.idUsuario
   >;
 
-  public readonly bitacoraUsuario: HasManyRepositoryFactory<BitacoraUsuario, typeof Usuario.prototype.idUsuario>;
+  public readonly bitacoraUsuario: HasManyRepositoryFactory<
+    BitacoraUsuario,
+    typeof Usuario.prototype.idUsuario
+  >;
 
   constructor(
     @inject('datasources.Azure') dataSource: AzureDataSource,
@@ -68,8 +73,14 @@ export class UsuarioRepository extends DefaultCrudRepository<
     protected bitacoraUsuarioRepositoryGetter: Getter<BitacoraUsuarioRepository>,
   ) {
     super(Usuario, dataSource);
-    this.bitacoraUsuario = this.createHasManyRepositoryFactoryFor('bitacoraUsuario', bitacoraUsuarioRepositoryGetter,);
-    this.registerInclusionResolver('bitacoraUsuario', this.bitacoraUsuario.inclusionResolver);
+    this.bitacoraUsuario = this.createHasManyRepositoryFactoryFor(
+      'bitacoraUsuario',
+      bitacoraUsuarioRepositoryGetter,
+    );
+    this.registerInclusionResolver(
+      'bitacoraUsuario',
+      this.bitacoraUsuario.inclusionResolver,
+    );
 
     this.beneficiariosDadosDeAlta = this.createHasManyRepositoryFactoryFor(
       'beneficiariosDadosDeAlta',

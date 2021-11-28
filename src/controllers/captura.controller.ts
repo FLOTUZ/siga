@@ -23,7 +23,7 @@ import {CapturaRepository} from '../repositories';
 export class CapturaController {
   constructor(
     @repository(CapturaRepository)
-    public capturaRepository : CapturaRepository,
+    public capturaRepository: CapturaRepository,
   ) {}
 
   @post('/capturas')
@@ -52,9 +52,7 @@ export class CapturaController {
     description: 'Captura model count',
     content: {'application/json': {schema: CountSchema}},
   })
-  async count(
-    @param.where(Captura) where?: Where<Captura>,
-  ): Promise<Count> {
+  async count(@param.where(Captura) where?: Where<Captura>): Promise<Count> {
     return this.capturaRepository.count(where);
   }
 
@@ -106,7 +104,8 @@ export class CapturaController {
   })
   async findById(
     @param.path.number('id') id: number,
-    @param.filter(Captura, {exclude: 'where'}) filter?: FilterExcludingWhere<Captura>
+    @param.filter(Captura, {exclude: 'where'})
+    filter?: FilterExcludingWhere<Captura>,
   ): Promise<Captura> {
     return this.capturaRepository.findById(id, filter);
   }

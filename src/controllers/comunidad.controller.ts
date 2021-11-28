@@ -23,7 +23,7 @@ import {ComunidadRepository} from '../repositories';
 export class ComunidadController {
   constructor(
     @repository(ComunidadRepository)
-    public comunidadRepository : ComunidadRepository,
+    public comunidadRepository: ComunidadRepository,
   ) {}
 
   @post('/comunidades')
@@ -106,7 +106,8 @@ export class ComunidadController {
   })
   async findById(
     @param.path.number('id') id: number,
-    @param.filter(Comunidad, {exclude: 'where'}) filter?: FilterExcludingWhere<Comunidad>
+    @param.filter(Comunidad, {exclude: 'where'})
+    filter?: FilterExcludingWhere<Comunidad>,
   ): Promise<Comunidad> {
     return this.comunidadRepository.findById(id, filter);
   }

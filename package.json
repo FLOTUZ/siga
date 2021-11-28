@@ -30,10 +30,10 @@
     "preopenapi-spec": "npm run build",
     "openapi-spec": "node ./dist/openapi-spec",
     "prestart": "npm run rebuild",
-    "start": "node -r source-map-support/register .",
+    "start": "npm run prettier:fix && node -r source-map-support/register .",
     "clean": "lb-clean dist *.tsbuildinfo .eslintcache",
     "rebuild": "npm run clean && npm run build",
-    "start:prod": "node dist/index.js"
+    "start:prod": "node ./dist/migrate && node dist/index.js"
   },
   "repository": {
     "type": "git",

@@ -23,7 +23,7 @@ import {UnidadRepository} from '../repositories';
 export class UnidadController {
   constructor(
     @repository(UnidadRepository)
-    public unidadRepository : UnidadRepository,
+    public unidadRepository: UnidadRepository,
   ) {}
 
   @post('/unidades')
@@ -52,9 +52,7 @@ export class UnidadController {
     description: 'Unidad model count',
     content: {'application/json': {schema: CountSchema}},
   })
-  async count(
-    @param.where(Unidad) where?: Where<Unidad>,
-  ): Promise<Count> {
+  async count(@param.where(Unidad) where?: Where<Unidad>): Promise<Count> {
     return this.unidadRepository.count(where);
   }
 
@@ -70,9 +68,7 @@ export class UnidadController {
       },
     },
   })
-  async find(
-    @param.filter(Unidad) filter?: Filter<Unidad>,
-  ): Promise<Unidad[]> {
+  async find(@param.filter(Unidad) filter?: Filter<Unidad>): Promise<Unidad[]> {
     return this.unidadRepository.find(filter);
   }
 
@@ -106,7 +102,8 @@ export class UnidadController {
   })
   async findById(
     @param.path.number('id') id: number,
-    @param.filter(Unidad, {exclude: 'where'}) filter?: FilterExcludingWhere<Unidad>
+    @param.filter(Unidad, {exclude: 'where'})
+    filter?: FilterExcludingWhere<Unidad>,
   ): Promise<Unidad> {
     return this.unidadRepository.findById(id, filter);
   }

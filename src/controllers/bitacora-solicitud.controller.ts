@@ -23,13 +23,15 @@ import {BitacoraSolicitudRepository} from '../repositories';
 export class BitacoraSolicitudController {
   constructor(
     @repository(BitacoraSolicitudRepository)
-    public bitacoraSolicitudRepository : BitacoraSolicitudRepository,
+    public bitacoraSolicitudRepository: BitacoraSolicitudRepository,
   ) {}
 
   @post('/solicitud-log')
   @response(200, {
     description: 'BitacoraSolicitud model instance',
-    content: {'application/json': {schema: getModelSchemaRef(BitacoraSolicitud)}},
+    content: {
+      'application/json': {schema: getModelSchemaRef(BitacoraSolicitud)},
+    },
   })
   async create(
     @requestBody({
@@ -106,7 +108,8 @@ export class BitacoraSolicitudController {
   })
   async findById(
     @param.path.number('id') id: number,
-    @param.filter(BitacoraSolicitud, {exclude: 'where'}) filter?: FilterExcludingWhere<BitacoraSolicitud>
+    @param.filter(BitacoraSolicitud, {exclude: 'where'})
+    filter?: FilterExcludingWhere<BitacoraSolicitud>,
   ): Promise<BitacoraSolicitud> {
     return this.bitacoraSolicitudRepository.findById(id, filter);
   }

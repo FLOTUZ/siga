@@ -23,7 +23,7 @@ import {BitacoraUsuarioRepository} from '../repositories';
 export class BitacoraUsuarioController {
   constructor(
     @repository(BitacoraUsuarioRepository)
-    public bitacoraUsuarioRepository : BitacoraUsuarioRepository,
+    public bitacoraUsuarioRepository: BitacoraUsuarioRepository,
   ) {}
 
   @post('/usuario-log')
@@ -106,7 +106,8 @@ export class BitacoraUsuarioController {
   })
   async findById(
     @param.path.number('id') id: number,
-    @param.filter(BitacoraUsuario, {exclude: 'where'}) filter?: FilterExcludingWhere<BitacoraUsuario>
+    @param.filter(BitacoraUsuario, {exclude: 'where'})
+    filter?: FilterExcludingWhere<BitacoraUsuario>,
   ): Promise<BitacoraUsuario> {
     return this.bitacoraUsuarioRepository.findById(id, filter);
   }

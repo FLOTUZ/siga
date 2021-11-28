@@ -23,7 +23,7 @@ import {SolicitudRepository} from '../repositories';
 export class SolicitudController {
   constructor(
     @repository(SolicitudRepository)
-    public solicitudRepository : SolicitudRepository,
+    public solicitudRepository: SolicitudRepository,
   ) {}
 
   @post('/solicitudes')
@@ -106,7 +106,8 @@ export class SolicitudController {
   })
   async findById(
     @param.path.number('id') id: number,
-    @param.filter(Solicitud, {exclude: 'where'}) filter?: FilterExcludingWhere<Solicitud>
+    @param.filter(Solicitud, {exclude: 'where'})
+    filter?: FilterExcludingWhere<Solicitud>,
   ): Promise<Solicitud> {
     return this.solicitudRepository.findById(id, filter);
   }

@@ -15,16 +15,14 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
-import {
-  Comunidad,
-  Beneficiario,
-} from '../models';
+import {Comunidad, Beneficiario} from '../models';
 import {ComunidadRepository} from '../repositories';
 
 export class ComunidadBeneficiarioController {
   constructor(
-    @repository(ComunidadRepository) protected comunidadRepository: ComunidadRepository,
-  ) { }
+    @repository(ComunidadRepository)
+    protected comunidadRepository: ComunidadRepository,
+  ) {}
 
   @get('/comunidads/{id}/beneficiarios', {
     responses: {
@@ -49,7 +47,9 @@ export class ComunidadBeneficiarioController {
     responses: {
       '200': {
         description: 'Comunidad model instance',
-        content: {'application/json': {schema: getModelSchemaRef(Beneficiario)}},
+        content: {
+          'application/json': {schema: getModelSchemaRef(Beneficiario)},
+        },
       },
     },
   })
@@ -61,11 +61,12 @@ export class ComunidadBeneficiarioController {
           schema: getModelSchemaRef(Beneficiario, {
             title: 'NewBeneficiarioInComunidad',
             exclude: ['idBeneficiario'],
-            optional: ['comunidadId']
+            optional: ['comunidadId'],
           }),
         },
       },
-    }) beneficiario: Omit<Beneficiario, 'idBeneficiario'>,
+    })
+    beneficiario: Omit<Beneficiario, 'idBeneficiario'>,
   ): Promise<Beneficiario> {
     return this.comunidadRepository.beneficiarios(id).create(beneficiario);
   }
@@ -88,9 +89,12 @@ export class ComunidadBeneficiarioController {
       },
     })
     beneficiario: Partial<Beneficiario>,
-    @param.query.object('where', getWhereSchemaFor(Beneficiario)) where?: Where<Beneficiario>,
+    @param.query.object('where', getWhereSchemaFor(Beneficiario))
+    where?: Where<Beneficiario>,
   ): Promise<Count> {
-    return this.comunidadRepository.beneficiarios(id).patch(beneficiario, where);
+    return this.comunidadRepository
+      .beneficiarios(id)
+      .patch(beneficiario, where);
   }
 
   @del('/comunidads/{id}/beneficiarios', {
@@ -103,7 +107,8 @@ export class ComunidadBeneficiarioController {
   })
   async delete(
     @param.path.number('id') id: number,
-    @param.query.object('where', getWhereSchemaFor(Beneficiario)) where?: Where<Beneficiario>,
+    @param.query.object('where', getWhereSchemaFor(Beneficiario))
+    where?: Where<Beneficiario>,
   ): Promise<Count> {
     return this.comunidadRepository.beneficiarios(id).delete(where);
   }

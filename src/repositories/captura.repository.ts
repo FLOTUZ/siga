@@ -8,9 +8,7 @@ export class CapturaRepository extends DefaultCrudRepository<
   typeof Captura.prototype.idCaptura,
   CapturaRelations
 > {
-  constructor(
-    @inject('datasources.Azure') dataSource: AzureDataSource,
-  ) {
+  constructor(@inject('datasources.Azure') dataSource: AzureDataSource) {
     super(Captura, dataSource);
   }
 }
