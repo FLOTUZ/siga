@@ -1,16 +1,15 @@
 import {inject, lifeCycleObserver, LifeCycleObserver} from '@loopback/core';
 import {juggler} from '@loopback/repository';
-import {env} from 'process';
 
 const config = {
   name: 'Azure',
   connector: 'mysql',
   url: '',
-  host: env.DB_HOST,
-  port: env.DB_PORT,
-  user: env.DB_USER,
-  password: env.DB_PASSWORD,
-  database: env.DB_DATABASE,
+  host: 'localhost',
+  port: 3307,
+  user: 'emmanuel',
+  password: 'sintezoide',
+  database: 'sigacharo',
 };
 
 // Observe application's life cycle to disconnect the datasource when
