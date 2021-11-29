@@ -6,6 +6,7 @@ export class PersonaMoral extends Entity {
     type: 'number',
     id: true,
     generated: true,
+    unique: true,
   })
   idPersonaMoral?: number;
 

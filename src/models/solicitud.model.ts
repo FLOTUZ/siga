@@ -9,6 +9,7 @@ export class Solicitud extends Entity {
     type: 'number',
     id: true,
     generated: true,
+    unique: true,
   })
   idSolicitud?: number;
 

@@ -6,6 +6,7 @@ export class BitacoraUsuario extends Entity {
     type: 'number',
     id: true,
     generated: true,
+    unique: true,
   })
   idBitacoraUsuario?: number;
 

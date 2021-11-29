@@ -1,4 +1,4 @@
-import {Entity, model, property, hasMany} from '@loopback/repository';
+import {Entity, hasMany, model, property} from '@loopback/repository';
 import {Beneficiario} from './beneficiario.model';
 
 @model()
@@ -7,6 +7,7 @@ export class Comunidad extends Entity {
     type: 'number',
     id: true,
     generated: true,
+    unique: true,
   })
   idComunidad?: number;
 

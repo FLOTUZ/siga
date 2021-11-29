@@ -6,6 +6,7 @@ export class Captura extends Entity {
     type: 'number',
     id: true,
     generated: true,
+    unique: true,
   })
   idCaptura?: number;
 

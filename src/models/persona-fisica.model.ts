@@ -6,6 +6,7 @@ export class PersonaFisica extends Entity {
     type: 'number',
     id: true,
     generated: true,
+    unique: true,
   })
   idPersonaFisica?: number;
 

@@ -1,4 +1,4 @@
-import {Entity, hasMany, model, property, hasOne} from '@loopback/repository';
+import {Entity, hasMany, hasOne, model, property} from '@loopback/repository';
 import {BitacoraPrograma} from './bitacora-programa.model';
 import {Solicitud} from './solicitud.model';
 import {Unidad} from './unidad.model';
@@ -9,6 +9,7 @@ export class Programa extends Entity {
     type: 'number',
     id: true,
     generated: true,
+    unique: true,
   })
   idPrograma?: number;
 

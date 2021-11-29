@@ -11,6 +11,7 @@ export class Usuario extends Entity {
     type: 'number',
     id: true,
     generated: true,
+    unique: true,
   })
   idUsuario?: number;
 
@@ -41,6 +42,7 @@ export class Usuario extends Entity {
   @property({
     type: 'string',
     required: true,
+    unique: true,
   })
   email: string;
 

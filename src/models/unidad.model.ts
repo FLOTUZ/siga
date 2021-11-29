@@ -6,6 +6,7 @@ export class Unidad extends Entity {
     type: 'number',
     id: true,
     generated: true,
+    unique: true,
   })
   idUnidad?: number;
 
