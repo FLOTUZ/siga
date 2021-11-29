@@ -1,9 +1,9 @@
 import {Entity, hasMany, hasOne, model, property} from '@loopback/repository';
 import {Beneficiario} from './beneficiario.model';
+import {BitacoraUsuario} from './bitacora-usuario.model';
 import {Captura} from './captura.model';
 import {Programa} from './programa.model';
 import {Solicitud} from './solicitud.model';
-import {BitacoraUsuario} from './bitacora-usuario.model';
 
 @model()
 export class Usuario extends Entity {
@@ -37,6 +37,12 @@ export class Usuario extends Entity {
     required: true,
   })
   apellidoMaterno: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  email: string;
 
   @property({
     type: 'string',
