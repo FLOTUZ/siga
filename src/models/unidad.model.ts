@@ -12,10 +12,9 @@ export class Unidad extends Entity {
 
   @property({
     type: 'string',
-    id: true,
-    generated: true,
+    required: true,
   })
-  nombre?: string;
+  nombre: string;
 
   constructor(data?: Partial<Unidad>) {
     super(data);
