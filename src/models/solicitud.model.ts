@@ -14,12 +14,6 @@ export class Solicitud extends Entity {
   idSolicitud?: number;
 
   @property({
-    type: 'string',
-    required: true,
-  })
-  folio: string;
-
-  @property({
     type: 'date',
     required: true,
   })
