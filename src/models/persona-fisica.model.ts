@@ -35,7 +35,7 @@ export class PersonaFisica extends Entity {
   fechaNacimiento: string;
 
   @property({
-    type: 'date',
+    type: 'string',
     required: true,
   })
   curp: string;
