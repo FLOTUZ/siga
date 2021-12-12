@@ -60,13 +60,15 @@ export class Beneficiario extends Entity {
 
   @property({
     type: 'number',
+    required: true,
   })
-  usuarioCargaId?: number;
+  usuarioCargaId: number;
 
   @property({
     type: 'number',
+    required: true,
   })
-  comunidadId?: number;
+  comunidadId: number;
 
   @hasMany(() => Solicitud)
   solicitudes: Solicitud[];
